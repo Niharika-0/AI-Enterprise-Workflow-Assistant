@@ -3,6 +3,7 @@ package com.example.assistant.controller;
 
 import com.example.assistant.dto.CreateTaskRequest;
 import com.example.assistant.dto.TaskResponse;
+import com.example.assistant.entity.Task;
 import com.example.assistant.service.TaskService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 public class TaskController {
+
     private TaskService taskService;
 
     public TaskController(TaskService taskService){
@@ -18,12 +20,12 @@ public class TaskController {
     }
 
     @GetMapping("/task")
-    public List<TaskResponse> task(){
+    public List<Task> task(){
        return  taskService.gettask();
     }
 
     @PostMapping("/settask")
-    public TaskResponse createTask(
+    public Task createTask(
             @RequestBody CreateTaskRequest request) {
         return  taskService.createTas(request.getTaskName());
     }
