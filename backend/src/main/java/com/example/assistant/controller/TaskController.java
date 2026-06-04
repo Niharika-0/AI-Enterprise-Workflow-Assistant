@@ -36,4 +36,9 @@ public class TaskController {
         if(taskService.deletetask(taskName))return "Task Deleted Successfully.";
         else return "May be task Name not present.";
     }
+
+    @PutMapping("/update/task/{id}")
+    public Task updatetask(@PathVariable Long id, @RequestBody CreateTaskRequest req){
+       return  taskService.update(id,req.getTaskName());
+    }
 }

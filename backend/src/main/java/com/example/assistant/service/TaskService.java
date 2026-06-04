@@ -50,4 +50,12 @@ public class TaskService {
 
         return false;
     }
+
+    public Task update(Long id,String TaskName){
+        Task t= taskRepo.findById(id).orElseThrow();
+//            taskRepo.findAll().stream().filter(v->v.getId().equals(id));
+           t.setTaskName(TaskName);
+           taskRepo.save(t);
+           return t;
+    }
 }
