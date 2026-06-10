@@ -1,0 +1,32 @@
+package com.example.assistant.controller;
+
+import com.example.assistant.dto.LogResponse;
+import com.example.assistant.dto.LoginRequest;
+import com.example.assistant.dto.RegisterRequest;
+import com.example.assistant.service.AuthService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Controller
+@RequestMapping("/auth")
+public class AuthController {
+
+   private final  AuthService auth;
+
+   public AuthController(AuthService auth){
+       this.auth=auth;
+   }
+
+    @PostMapping("/register")
+    public LogResponse register(@RequestBody RegisterRequest req){
+       return auth.register(req);
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody LoginRequest req){
+       return auth.login(req);
+    }
+}
