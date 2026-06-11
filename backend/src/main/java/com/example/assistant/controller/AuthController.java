@@ -1,16 +1,13 @@
 package com.example.assistant.controller;
 
+import com.example.assistant.config.securityConfig;
 import com.example.assistant.dto.LogResponse;
 import com.example.assistant.dto.LoginRequest;
 import com.example.assistant.dto.RegisterRequest;
 import com.example.assistant.service.AuthService;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/auth")
 public class AuthController {
 
@@ -27,6 +24,6 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestBody LoginRequest req){
-       return auth.login(req);
+        return auth.login(req);
     }
 }
