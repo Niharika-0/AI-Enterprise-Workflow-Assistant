@@ -52,7 +52,7 @@ public class AuthService {
             log.info("Invalid Email");
             return "Invalid Email";
         }
-        if(!passwrdEncode.matches(user.get().getPassword(),request.getPassword()) ||  !user.get().getName().equals(request.getName())){
+        if(!passwrdEncode.matches(request.getPassword(),user.get().getPassword()) ||  !user.get().getName().equals(request.getName())){
             log.info("Invalid Password or Username");
             return "Invalid Password or UserName";
         }
