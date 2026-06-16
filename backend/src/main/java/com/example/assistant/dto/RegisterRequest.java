@@ -1,10 +1,16 @@
 package com.example.assistant.dto;
 
-public class RegisterRequest {
+import jakarta.validation.constraints.NotBlank;
 
+public class RegisterRequest {
+    @NotBlank(message="name cannot be blank")
     private String name;
+
+    @NotBlank(message="Email cannot be blank")
     private String email;
+        @NotBlank(message="Password cannot be blank")
     private String password;
+
 
 
     public String getName() {
