@@ -6,6 +6,7 @@ import com.example.assistant.dto.RegisterRequest;
 import com.example.assistant.entity.User;
 import com.example.assistant.repository.UserRepo;
 import lombok.extern.slf4j.Slf4j;
+import org.jspecify.annotations.NonNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -36,23 +37,17 @@ public class AuthService {
         return new LogResponse(saved.getEmail(),saved.getName(),saved.getCreatedAt());
     }
 
-    public String login(LoginRequest request){
+    public String login( LoginRequest request){
         log.info("finding email from db");
-        Optional<User> user = Optional.of(new User());
-        try {
-             user =
-                     Optional.ofNullable(userRep.findByEmail(request.getEmail()));
-        } catch (Exception e) {
-            log.info("Email Exception");
-            throw new RuntimeException(e);
-        }
 
-        log.info("Email retrieved successfully");
-        if(user.isEmpty()){
-            log.info("Invalid Email");
-            return "Invalid Email";
-        }
-        if(!passwrdEncode.matches(request.getPassword(),user.get().getPassword()) ||  !user.get().getName().equals(request.getName())){
+        User user =  userRep.findByEmail(request.getEmail()).orElseThrow(()->  new RuntimeException("User not found"));
+
+//            log.info("Email Exception");
+
+
+
+//        log.info("Email retrieved successfully");
+        if(!passwrdEncode.matches(request.getPassword(),user.getPassword())){
             log.info("Invalid Password or Username");
             return "Invalid Password or UserName";
         }
