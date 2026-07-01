@@ -49,9 +49,8 @@ public class AuthService {
 //        log.info("Email retrieved successfully");
         if(!passwrdEncode.matches(request.getPassword(),user.getPassword())){
             log.info("Invalid Password or Username");
-            return "Invalid Password or UserName";
+            throw new RuntimeException("Invalid Password");
         }
-        log.info("Successful");
         return "Login Successful";
     }
 }
