@@ -5,7 +5,9 @@ import com.example.assistant.dto.LoginRequest;
 import com.example.assistant.dto.RegisterRequest;
 import com.example.assistant.entity.User;
 import com.example.assistant.repository.UserRepo;
+import com.example.assistant.security.JwtService;
 import lombok.extern.slf4j.Slf4j;
+import org.antlr.v4.runtime.Token;
 import org.jspecify.annotations.NonNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,10 +20,11 @@ import java.util.Optional;
 public class AuthService {
     private final UserRepo userRep;
     private final BCryptPasswordEncoder passwrdEncode;
-
-    public AuthService(UserRepo userRep, BCryptPasswordEncoder passwrdEncode){
+    private final JwtService jwtservice;
+    public AuthService(UserRepo userRep, BCryptPasswordEncoder passwrdEncode, JwtService jwtservice){
         this.userRep=userRep;
         this.passwrdEncode=passwrdEncode;
+        this.jwtservice = jwtservice;
     }
 
     public LogResponse register(RegisterRequest request){
@@ -41,16 +44,12 @@ public class AuthService {
         log.info("finding email from db");
 
         User user =  userRep.findByEmail(request.getEmail()).orElseThrow(()->  new RuntimeException("User not found"));
-
-//            log.info("Email Exception");
-
-
-
 //        log.info("Email retrieved successfully");
         if(!passwrdEncode.matches(request.getPassword(),user.getPassword())){
             log.info("Invalid Password or Username");
             throw new RuntimeException("Invalid Password");
         }
-        return "Login Successful";
+        String token = jwtservice.generateToken(request.getEmail());
+        return token;
     }
 }

@@ -5,7 +5,7 @@ import com.example.assistant.dto.LogResponse;
 import com.example.assistant.dto.LoginRequest;
 import com.example.assistant.dto.RegisterRequest;
 import com.example.assistant.service.AuthService;
-import jakarta.validation.Valid;
+//import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
