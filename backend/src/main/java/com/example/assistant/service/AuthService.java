@@ -28,7 +28,7 @@ public class AuthService {
     }
 
     public LogResponse register(RegisterRequest request){
-        if(userRep.findByEmail(request.getEmail()) != null){
+        if(userRep.findByEmail(request.getEmail()).isPresent()){
             throw new RuntimeException("Email already exists");
         }
         User user=new User();

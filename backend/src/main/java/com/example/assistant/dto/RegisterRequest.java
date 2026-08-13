@@ -6,9 +6,11 @@ public class RegisterRequest {
     @NotBlank(message="name cannot be blank")
     private String name;
 
+
     @NotBlank(message="Email cannot be blank")
     private String email;
-        @NotBlank(message="Password cannot be blank")
+
+    @NotBlank(message="Password cannot be blank")
     private String password;
 
 

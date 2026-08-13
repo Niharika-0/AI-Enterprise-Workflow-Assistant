@@ -1,11 +1,11 @@
 package com.example.assistant.controller;
 
-import com.example.assistant.config.securityConfig;
 import com.example.assistant.dto.LogResponse;
 import com.example.assistant.dto.LoginRequest;
 import com.example.assistant.dto.RegisterRequest;
 import com.example.assistant.service.AuthService;
 //import jakarta.validation.Valid;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,7 +19,7 @@ public class AuthController {
    }
 
     @PostMapping("/register")
-    public LogResponse register(@Valid  @RequestBody RegisterRequest req){
+    public LogResponse register(@Valid @RequestBody RegisterRequest req){
        return auth.register(req);
     }
 

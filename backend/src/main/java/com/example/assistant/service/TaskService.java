@@ -26,7 +26,7 @@ public class TaskService {
 
         Task task = new Task();
 
-        task.setTaskName(taskName);
+        task.setTitle(taskName);
 
         return (Task) taskRepo.save(task);
 
@@ -39,7 +39,7 @@ public class TaskService {
 
         for(Task task : tasks){
 
-            if(task.getTaskName()
+            if(task.getTitle()
                     .equalsIgnoreCase(taskName)){
 
                 taskRepo.delete(task);
@@ -54,7 +54,7 @@ public class TaskService {
     public Task update(Long id,String TaskName){
         Task t= taskRepo.findById(id).orElseThrow();
 //            taskRepo.findAll().stream().filter(v->v.getId().equals(id));
-           t.setTaskName(TaskName);
+           t.setTitle(TaskName);
            taskRepo.save(t);
            return t;
     }

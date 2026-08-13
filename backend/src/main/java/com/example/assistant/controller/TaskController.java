@@ -4,16 +4,19 @@ package com.example.assistant.controller;
 import com.example.assistant.dto.CreateTaskRequest;
 import com.example.assistant.dto.TaskResponse;
 import com.example.assistant.entity.Task;
+import com.example.assistant.repository.TaskRepo;
 import com.example.assistant.service.TaskService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
 public class TaskController {
 
     private TaskService taskService;
+    private TaskRepo taskRepo;
 
     public TaskController(TaskService taskService){
         this.taskService=taskService;
@@ -24,10 +27,21 @@ public class TaskController {
        return  taskService.gettask();
     }
 
-    @PostMapping("/settask")
-    public Task createTask(
-            @RequestBody CreateTaskRequest request) {
-        return  taskService.createTas(request.getTaskName());
+    @PostMapping("/task/create")
+    public Task createTask(CreateTaskRequest request) {
+
+        Task task = new Task();
+
+        task.setTitle(request.getTitle());
+        task.setDescription(request.getDescription());
+        task.setStatus(request.getStatus());
+        task.setPriority(request.getPriority());
+        task.setDueDate(request.getDueDate());
+
+        task.setCreatedAt(LocalDateTime.now());
+        task.setUpdatedAt(LocalDateTime.now());
+
+        return taskRepo.save(task);
     }
 
     @DeleteMapping("delete/task/{taskName}")
