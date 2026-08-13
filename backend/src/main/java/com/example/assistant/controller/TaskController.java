@@ -24,7 +24,7 @@ public class TaskController {
 
     @GetMapping("/task")
     public List<Task> task(){
-       return  taskService.gettask();
+       return  taskService.getTasks();
     }
 
     @PostMapping("/task/create")
@@ -53,6 +53,17 @@ public class TaskController {
 
     @PutMapping("/update/task/{id}")
     public Task updatetask(@PathVariable Long id, @RequestBody CreateTaskRequest req){
-       return  taskService.update(id,req.getTaskName());
+       return  taskService.update(id,req.getTitle());
+    }
+
+    @GetMapping("/tasks/{id}")
+    public Task getTaskById(@PathVariable Long id) {
+
+        return taskService.getTaskById(id);
+    }
+
+    @PutMapping("/update/task/{id}")
+    public Task updatetask(@PathVariable Long id, @RequestBody CreateTaskRequest req){
+        return taskService.update(id,req.getTaskName());
     }
 }
