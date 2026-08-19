@@ -29,14 +29,20 @@ public class TaskService {
                 .orElseThrow(() -> new RuntimeException("Task not found with id: " + id));
     }
 
-    public Task createTas(String taskName){
+    public Task createTask(CreateTaskRequest request) {
 
         Task task = new Task();
 
-        task.setTitle(taskName);
+        task.setTitle(request.getTitle());
+        task.setDescription(request.getDescription());
+        task.setStatus(request.getStatus());
+        task.setPriority(request.getPriority());
+        task.setDueDate(request.getDueDate());
 
-        return (Task) taskRepo.save(task);
+        task.setCreatedAt(LocalDateTime.now());
+        task.setUpdatedAt(LocalDateTime.now());
 
+        return taskRepo.save(task);
     }
 
 

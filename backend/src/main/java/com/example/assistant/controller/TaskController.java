@@ -30,18 +30,18 @@ public class TaskController {
     @PostMapping("/task/create")
     public Task createTask(CreateTaskRequest request) {
 
-        Task task = new Task();
+//        Task task = new Task();
+//
+//        task.setTitle(request.getTitle());
+//        task.setDescription(request.getDescription());
+//        task.setStatus(request.getStatus());
+//        task.setPriority(request.getPriority());
+//        task.setDueDate(request.getDueDate());
+//
+//        task.setCreatedAt(LocalDateTime.now());
+//        task.setUpdatedAt(LocalDateTime.now());
 
-        task.setTitle(request.getTitle());
-        task.setDescription(request.getDescription());
-        task.setStatus(request.getStatus());
-        task.setPriority(request.getPriority());
-        task.setDueDate(request.getDueDate());
-
-        task.setCreatedAt(LocalDateTime.now());
-        task.setUpdatedAt(LocalDateTime.now());
-
-        return taskRepo.save(task);
+        return taskService.createTask(request);
     }
 
     @DeleteMapping("delete/task/{taskName}")
@@ -51,10 +51,10 @@ public class TaskController {
         else return "May be task Name not present.";
     }
 
-    @PutMapping("/update/task/{id}")
-    public Task updatetask(@PathVariable Long id, @RequestBody CreateTaskRequest req){
-       return  taskService.update(id,req.getTitle());
-    }
+//    @PutMapping("/update/task/{id}")
+//    public Task updatetask(@PathVariable Long id, @RequestBody CreateTaskRequest req){
+//       return  taskService.update(id,req);
+//    }
 
     @GetMapping("/tasks/{id}")
     public Task getTaskById(@PathVariable Long id) {
@@ -64,6 +64,6 @@ public class TaskController {
 
     @PutMapping("/update/task/{id}")
     public Task updatetask(@PathVariable Long id, @RequestBody CreateTaskRequest req){
-        return taskService.update(id,req.getTaskName());
+        return taskService.update(id,req);
     }
 }
